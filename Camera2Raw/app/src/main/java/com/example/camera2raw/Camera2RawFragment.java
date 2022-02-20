@@ -924,8 +924,12 @@ public class Camera2RawFragment extends Fragment
 
                     @Override
                     public void onScanCompleted(String path, Uri uri) {
-                        // 在这显示，其实有线程不安全问题，但是我不会写，只好在这弄了
-                        tv.setImageBitmap(bitmap);
+                        tv.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv.setImageBitmap(bitmap);
+                            }
+                        });
                     }
                 });
             }
